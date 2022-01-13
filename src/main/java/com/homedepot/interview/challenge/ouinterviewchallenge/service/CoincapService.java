@@ -45,6 +45,8 @@ public class CoincapService {
 
     public CryptoExchangeRate getCryptoExchangeRate(Double input, String from, String to) {
 
+        log.info("In getCryptoExchangeRate({}, {}, {})", input, from, to);
+
         try {
             CoincapAsset fromAsset = findTokenFromSymbol(from).orElseThrow();
             CoincapAsset toAsset = findTokenFromSymbol(to).orElseThrow();
@@ -74,12 +76,14 @@ public class CoincapService {
 
     private Optional<CoincapAsset> findTokenFromSymbol(String tokenSymbol) {
         String assetSearchUrl = "/v2/assets?search=" + tokenSymbol;
+        log.info("Requesting {}", coincapBaseUrl + assetSearchUrl);
         CoincapAssetWrapper returnValue = coincapRestTemplate
                 .exchange(coincapBaseUrl + assetSearchUrl,
                         HttpMethod.GET,
                         getCoincapHeaders(),
                         CoincapAssetWrapper.class)
                 .getBody();
+        log.info("Data {}", returnValue);
         assert returnValue != null;
         return returnValue.getData()
                 .stream().filter(a -> a.getSymbol().equalsIgnoreCase(tokenSymbol))

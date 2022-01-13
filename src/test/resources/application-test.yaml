@@ -1,0 +1,9 @@
+coincap:
+  api:
+    url: http://localhost:9080
+    token: foo
+
+debug: false
+logging:
+  level:
+    root: info
