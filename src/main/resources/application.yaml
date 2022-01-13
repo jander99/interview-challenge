@@ -2,9 +2,3 @@ coincap:
   api:
     url: https://api.coincap.io
     token: 2e3b1fc2-1f1a-4157-9840-1092d4a312e2
-
-debug: true
-
-logging:
-  level:
-    root: debug

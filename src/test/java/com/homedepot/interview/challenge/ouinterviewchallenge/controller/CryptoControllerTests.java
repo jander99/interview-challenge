@@ -1,15 +1,9 @@
 package com.homedepot.interview.challenge.ouinterviewchallenge.controller;
 
-import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
-import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import com.homedepot.interview.challenge.ouinterviewchallenge.entity.CryptoExchangeRate;
 import org.assertj.core.data.Offset;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -19,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import java.util.Objects;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static com.homedepot.interview.challenge.ouinterviewchallenge.TestUtils.loadResourceAsString;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -60,5 +53,36 @@ public class CryptoControllerTests {
         assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(Objects.requireNonNull(actual.getBody()).getToAmount())
             .isCloseTo(expectedAmountDoge, Offset.offset(0.01));
+    }
+
+    @Test
+    public void test_No_Asset_Available() {
+
+        String btcSearch = "/v2/assets?search=BTC";
+        String foobarSearch = "/v2/assets?search=BAZ";
+
+        stubFor(get(urlEqualTo(btcSearch))
+            .withHeader("Authorization", equalTo("Bearer foo"))
+            .willReturn(
+                aResponse().withStatus(200)
+                    .withHeader("Content-Type", "application/json")
+                    .withBody(loadResourceAsString("/fixtures/fakeBTC.json"))
+            ));
+
+        stubFor(get(urlEqualTo(foobarSearch))
+            .withHeader("Authorization", equalTo("Bearer foo"))
+            .willReturn(
+                aResponse().withStatus(200)
+                    .withHeader("Content-Type", "application/json")
+                    .withBody(loadResourceAsString("/fixtures/noAsset.json"))
+            ));
+
+        String testUrl = "/api/crypto?amount=10&from=BTC&to=BAZ";
+        ResponseEntity<CryptoExchangeRate> actual = testRestTemplate.getForEntity(testUrl, CryptoExchangeRate.class);
+
+        assertThat(actual.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(actual.getBody()).isNull();
+
+
     }
 }
