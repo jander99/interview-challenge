@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Objects;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -25,11 +24,8 @@ public class CryptoController {
                                                         @RequestParam(name="from") String fromToken,
                                                         @RequestParam(name="to") String toToken) {
 
-        CryptoExchangeRate r = coincapService.getCryptoExchangeRate(fromAmount, fromToken, toToken);
-        if(Objects.nonNull(r)) {
-            return ResponseEntity.ok(r);
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
+        //TODO: Implement controller logic based on what is required.
+
+        return null;
     }
 }

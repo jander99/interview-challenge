@@ -52,5 +52,5 @@ public class CoincapAsset {
     @JsonProperty("explorer")
     private String explorer;
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 }
