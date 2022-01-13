@@ -1,0 +1,4 @@
+coincap:
+  api:
+    url: http://localhost:9080
+    token: foo
