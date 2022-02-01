@@ -2,7 +2,7 @@
 
 ## Cryptocurrency Converter ##
 
-This project will contain the skeleton of an API that allows the user to convert 
+This project contains the skeleton of an API that allows the user to convert 
 the value of one cryptocurrency into another cryptocurrency. 
 
 ## API Specification ##
@@ -30,9 +30,13 @@ If Etherium has a 10:1 conversion rate to Bitcoin, the response would be the 3 i
 }
 ```
 
-In order to get realtime conversion data, a free API available from CoinCap 
-should be used to convert from one token to another.  
-The documentation for this API is available [here.](https://docs.coincap.io/)
+In order to get realtime conversion data, a free API available from CoinCap should be used to convert 
+from one token to another.  
+The documentation for this API is available at https://docs.coincap.io/ 
+
+## Running the code ##
+
+This is a standard gradle project
 
 ## Hints ## 
 
