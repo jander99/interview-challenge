@@ -31,21 +31,27 @@ public class CoincapService {
     }
 
 
-    public CryptoExchangeRate getCryptoExchangeRate(Double input, String from, String to) {
+    public CryptoExchangeRate getCryptoExchangeRate(Double input, String from, String to) throws NoSuchElementException {
+        double fromPrice;
+        double toPrice;
 
-        // TODO: Implement the necessary logic and calls to
-        //  Coincap that might be needed to satisfy requirements.
-        return null;
+        fromPrice = Double.parseDouble(getAsset(from).getPriceUsd());
+        toPrice = Double.parseDouble(getAsset(to).getPriceUsd());
+        var exchangeRate = fromPrice / toPrice;
+
+        return CryptoExchangeRate.builder()
+            .fromAmount(input)
+            .toAmount(input * exchangeRate)
+            .fromToken(from)
+            .toToken(to)
+            .build();
     }
 
 
     /**
      * Searches the Coincap API for a token by Symbol name
-     * @param tokenSymbol
-     * @return a Coincap Asset
-     * @throws NoSuchElementException
      */
-    private CoincapAsset findTokenFromSymbol(String tokenSymbol) {
+    private CoincapAsset getAsset(String tokenSymbol) throws NoSuchElementException {
 
         String assetSearchUrl = "/v2/assets?search=" + tokenSymbol;
         CoincapAssetWrapper returnValue = coincapRestTemplate
@@ -54,6 +60,10 @@ public class CoincapService {
                 getCoincapHeaders(),
                 CoincapAssetWrapper.class)
             .getBody();
+
+        if (returnValue == null) {
+            throw new NoSuchElementException("No asset found for symbol: " + tokenSymbol);
+        }
 
         return returnValue
             .getData()

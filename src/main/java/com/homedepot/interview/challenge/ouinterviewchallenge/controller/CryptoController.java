@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.NoSuchElementException;
+
 
 @RestController
 @RequestMapping(value = "/api")
@@ -24,8 +26,12 @@ public class CryptoController {
                                                         @RequestParam(name="from") String fromToken,
                                                         @RequestParam(name="to") String toToken) {
 
-        //TODO: Implement controller logic based on what is required.
 
-        return null;
+        try {
+            CryptoExchangeRate exchangeRate = coincapService.getCryptoExchangeRate(fromAmount, fromToken, toToken);
+            return ResponseEntity.ok(exchangeRate);
+        } catch (NoSuchElementException noex) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }

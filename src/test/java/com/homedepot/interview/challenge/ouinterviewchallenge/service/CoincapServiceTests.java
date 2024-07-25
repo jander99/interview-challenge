@@ -81,7 +81,6 @@ public class CoincapServiceTests {
 
     @Test
     public void test_No_Asset_From_Coincap() {
-
         CoincapAsset ethAsset = new CoincapAsset();
         ethAsset.setSymbol("ETH");
         ethAsset.setPriceUsd("15.00");
