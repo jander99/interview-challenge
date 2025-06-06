@@ -54,13 +54,13 @@ public class CoincapServiceTests {
             .build();
 
 
-        when(mockRestTemplate.exchange(eq("https://foo/v2/assets?search=BTC"),
+        when(mockRestTemplate.exchange(eq("https://foo/v3/assets?search=BTC"),
             eq(HttpMethod.GET),
             any(HttpEntity.class),
             eq(CoincapAssetWrapper.class)))
             .thenReturn(ResponseEntity.ok(btcWrapper));
 
-        when(mockRestTemplate.exchange(eq("https://foo/v2/assets?search=DOGE"),
+        when(mockRestTemplate.exchange(eq("https://foo/v3/assets?search=DOGE"),
             eq(HttpMethod.GET),
             any(HttpEntity.class),
             eq(CoincapAssetWrapper.class)))
@@ -90,7 +90,7 @@ public class CoincapServiceTests {
             .data(new ArrayList<>(){{add(ethAsset);}})
             .build();
 
-        when(mockRestTemplate.exchange(eq("https://foo/v2/assets?search=BTC"),
+        when(mockRestTemplate.exchange(eq("https://foo/v3/assets?search=BTC"),
             eq(HttpMethod.GET),
             any(HttpEntity.class),
             eq(CoincapAssetWrapper.class)))

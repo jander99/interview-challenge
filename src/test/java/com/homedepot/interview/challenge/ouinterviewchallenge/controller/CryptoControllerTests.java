@@ -26,8 +26,8 @@ public class CryptoControllerTests {
     @Test
     void test_BTC_to_DOGE() {
 
-        String btcSearch = "/v2/assets?search=BTC";
-        String dogeSearch = "/v2/assets?search=DOGE";
+        String btcSearch = "/v3/assets?search=BTC";
+        String dogeSearch = "/v3/assets?search=DOGE";
 
         stubFor(get(urlEqualTo(btcSearch))
             .withHeader("Authorization", equalTo("Bearer foo"))
@@ -58,8 +58,8 @@ public class CryptoControllerTests {
     @Test
     public void test_No_Asset_Available() {
 
-        String btcSearch = "/v2/assets?search=BTC";
-        String foobarSearch = "/v2/assets?search=BAZ";
+        String btcSearch = "/v3/assets?search=BTC";
+        String foobarSearch = "/v3/assets?search=BAZ";
 
         stubFor(get(urlEqualTo(btcSearch))
             .withHeader("Authorization", equalTo("Bearer foo"))
