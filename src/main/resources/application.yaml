@@ -1,4 +1,4 @@
 coincap:
   api:
-    url: https://api.coincap.io
-    token: 2e3b1fc2-1f1a-4157-9840-1092d4a312e2
+    url: https://rest.coincap.io
+    token: 831e600b8cef9b023a69a680210a36251a16fc5f369b858f574b763d5f6443b7

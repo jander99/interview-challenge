@@ -32,7 +32,7 @@ If Etherium has a 10:1 conversion rate to Bitcoin, the response would be the 3 i
 
 In order to get realtime conversion data, a free API available from CoinCap should be used to convert 
 from one token to another.  
-The documentation for this API is available at https://docs.coincap.io/ 
+The documentation for this API is available at https://pro.coincap.io/api-docs/
 
 ## Running the code ##
 

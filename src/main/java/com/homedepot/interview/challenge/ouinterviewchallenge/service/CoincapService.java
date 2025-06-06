@@ -47,7 +47,7 @@ public class CoincapService {
      */
     private CoincapAsset findTokenFromSymbol(String tokenSymbol) {
 
-        String assetSearchUrl = "/v2/assets?search=" + tokenSymbol;
+        String assetSearchUrl = "/v3/assets?search=" + tokenSymbol;
         CoincapAssetWrapper returnValue = coincapRestTemplate
             .exchange(coincapBaseUrl + assetSearchUrl,
                 HttpMethod.GET,
